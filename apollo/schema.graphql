@@ -1,0 +1,87 @@
+scalar DateTime
+
+schema {
+  query: Query
+}
+
+enum LocationType {
+  TRAIN_STATION
+  CITY
+}
+
+type ShopLocation {
+  id: Int!
+  city: String!
+  locationType: LocationType!
+  lat: Float
+  lon: Float
+  order: Int
+  mapOrder: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ShopLocationWhereUniqueInput {
+  id: Int
+  name: String
+}
+
+type ShopLocationCreateInput {
+  name: String!
+  city: String!
+  locationType: LocationType!
+  lat: Float
+  lon: Float
+  order: Int
+  mapOrder: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Query {
+  showLocations(
+    take: Int
+    skip: Int
+    cursor: ShopLocationWhereUniqueInput
+  ): [ShopLocation!]!
+  showLocation(where: ShopLocationWhereUniqueInput!): ShopLocation
+}
+
+type Mutation {
+  createOneShopLocation(data: ShopLocationCreateInput!): ShopLocation!
+  deleteOneShopLocation(where: ShopLocationWhereUniqueInput!): ShopLocation
+}
+
+fragment ShopLocationFragment on ShopLocation {
+  id
+  city
+  locationType
+  lat
+  lon
+  order
+  mapOrder
+  createdAt
+  updatedAt
+}
+
+query GetShopLocations(
+  $take: Int
+  $skip: Int
+  $cursor: ShopLocationWhereUniqueInput
+) {
+  shopLocations(take: $take, skip: $skip, cursor: $cursor) {
+    ...ShopLocationFragment
+  }
+}
+
+mutation CreateOneShopLocation($data: ShopLocationCreateInput!) {
+  createOneShopLocation(data: $data) {
+    ...ShopLocationFragment
+  }
+}
+
+mutation DeleteOneShopLocation($where: ShopLocationWhereUniqueInput!) {
+  deleteOneShopLocation(where: $where) {
+    ...ShopLocationFragment
+  }
+}

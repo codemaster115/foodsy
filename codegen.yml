@@ -1,0 +1,25 @@
+schema: http://localhost:4000/graphql
+documents: "./apollo/*.graphql"
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+generates:
+  "./apollo/@types/codegen/graphql.tsx":
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withRefetchFn: true
+  "./apollo/@types/codegen/page.tsx":
+    config:
+      reactApolloVersion: 3
+      documentMode: external
+      importDocumentNodeExternallyFrom: ./graphql
+      apolloClientInstanceImport: "../../client"
+      withRefetchFn: true
+    preset: import-types
+    presetConfig:
+      typesPath: ./graphql
+    plugins:
+      - graphql-codegen-apollo-next-ssr

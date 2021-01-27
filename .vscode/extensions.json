@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "GraphQL.vscode-graphql",
+    "mikestead.dotenv",
+    "naumovs.color-highlight"
+  ]
+}
